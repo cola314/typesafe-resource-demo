@@ -1,3 +1,5 @@
+import com.example.MyPlugin
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
@@ -25,4 +27,19 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+apply plugin: MyPlugin
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/generated'
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.generatedSourceOutputDirectory = file('src/main/generated')
 }
